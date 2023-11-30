@@ -43,4 +43,15 @@ export type SpawnResult<T> = {
 	 * Promise that resolves (or rejects) when the spawned element is closed
 	 */
 	result: Promise<T>;
+	/**
+	 * Update function that will change the content of the spawned element with the result of the new render function
+	 */
+	update: (renderFn: Renderer<T>) => void;
+};
+
+export type AnimatedSpawnResult<T> = Omit<SpawnResult<T>, 'update'> & {
+	/**
+	 * Update function that will change the content of the spawned element with the result of the new render function
+	 */
+	update: (renderFn: AnimatedRenderer<T>) => void;
 };

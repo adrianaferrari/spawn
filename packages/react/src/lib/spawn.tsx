@@ -1,6 +1,6 @@
 import {closeSpawnedElement, registerResolver, setSpawnedRef} from './internals';
 import {AnimationWrapper} from './AnimationWrapper';
-import {AnimatedRenderer, Renderer, ResolveFn, SpawnResult} from './types';
+import {AnimatedRenderer, AnimatedSpawnResult, Renderer, ResolveFn, SpawnResult} from './types';
 
 let lastId = 0;
 
@@ -26,6 +26,9 @@ export function spawn<T>(renderFn: Renderer<T>, destination?: HTMLElement | null
 		resolve,
 		reject,
 		result,
+		update: (newRenderFn) => {
+			setSpawnedRef.current((prev) => prev.map((v) => (v.id === id ? {...v, renderFn: newRenderFn} : v)));
+		},
 	};
 }
 
@@ -37,8 +40,8 @@ export function spawn<T>(renderFn: Renderer<T>, destination?: HTMLElement | null
  * You can use `resolve`/`reject` to change the value of `show` and then call `unmount` once you receive a `hidden` (or equivalent) event from your component.
  * @param destination Container of the spawned element (defaults to `document.body`)
  */
-export function spawnAnimate<T>(renderFn: AnimatedRenderer<T>, destination?: HTMLElement | null): SpawnResult<T> {
-	return spawn(
+export function spawnAnimate<T>(renderFn: AnimatedRenderer<T>, destination?: HTMLElement | null): AnimatedSpawnResult<T> {
+	const {update: updateSpawn, ...spawnResult} = spawn<T>(
 		(resolve, reject) => (
 			<AnimationWrapper resolve={resolve} reject={reject}>
 				{renderFn}
@@ -46,4 +49,14 @@ export function spawnAnimate<T>(renderFn: AnimatedRenderer<T>, destination?: HTM
 		),
 		destination,
 	);
+	return {
+		...spawnResult,
+		update: (newRenderFn) => {
+			updateSpawn((resolve, reject) => (
+				<AnimationWrapper resolve={resolve} reject={reject}>
+					{newRenderFn}
+				</AnimationWrapper>
+			));
+		},
+	};
 }
