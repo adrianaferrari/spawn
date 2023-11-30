@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "packages/solid"
+		},
+		{
+			"path": "packages/react"
+		}
+	],
+	"settings": {}
+}
