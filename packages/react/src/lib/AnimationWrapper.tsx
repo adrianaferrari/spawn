@@ -41,9 +41,10 @@ export function AnimationWrapper<T>({resolve, reject, children}: AnimationWrappe
 	}, [unmountPromiseData]);
 	const canUnmountRef = useRef(false);
 	useEffect(() => {
-		requestAnimationFrame(() => {
+		const frameId = requestAnimationFrame(() => {
 			setShow(true);
 		});
+		return () => cancelAnimationFrame(frameId);
 	}, []);
 	return <>{children(internalResolve, internalReject, unmount, show)}</>;
 }

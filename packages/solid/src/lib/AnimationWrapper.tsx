@@ -1,4 +1,4 @@
-import {createSignal, onMount} from 'solid-js';
+import {createSignal, onCleanup, onMount} from 'solid-js';
 import {AnimatedRenderer, RejectFn, ResolveFn} from './types';
 
 export type AnimationWrapperProps<T> = {
@@ -38,10 +38,16 @@ export function AnimationWrapper<T>(props: AnimationWrapperProps<T>) {
 			unmountPromiseData.resolve();
 		}
 	}
+	let frameId: number | undefined = undefined;
 	onMount(() => {
-		requestAnimationFrame(() => {
+		frameId = requestAnimationFrame(() => {
 			setShow(true);
 		});
+	});
+	onCleanup(() => {
+		if (frameId !== undefined) {
+			cancelAnimationFrame(frameId);
+		}
 	});
 	return <>{props.children(internalResolve, internalReject, unmount, show)}</>;
 }
