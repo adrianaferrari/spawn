@@ -28,6 +28,12 @@ export default defineConfig(({mode}) => ({
 					},
 					rollupOptions: {
 						external: [...Object.keys(devDependencies || {}), ...Object.keys(peerDependencies || {})],
+						output: {
+							globals: {
+								react: 'React',
+								'react-dom': 'ReactDOM',
+							},
+						},
 					},
 			  },
 }));

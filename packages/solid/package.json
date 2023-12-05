@@ -49,7 +49,7 @@
 		"build:pages": "tsc && vite build --mode=pages",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
-		"prepack": "npm run lint && npm run test -- --run && npm run build"
+		"prepack": "npm run lint && npm run test -- --run && cp ../../README.md ./README.md && npm run build"
 	},
 	"author": "Adriana Ferrari",
 	"license": "MIT"

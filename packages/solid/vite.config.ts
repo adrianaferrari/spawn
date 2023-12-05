@@ -29,5 +29,10 @@ export default defineConfig(({mode}) => ({
 					rollupOptions: {
 						external: [...Object.keys(devDependencies || {}), ...Object.keys(peerDependencies || {})],
 					},
+					output: {
+						globals: {
+							'solid-js': 'SolidJS',
+						},
+					},
 			  },
 }));

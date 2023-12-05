@@ -27,7 +27,7 @@
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"test": "vitest",
-		"prepack": "npm run lint && npm run test -- --run && npm run build"
+		"prepack": "npm run lint && npm run test -- --run && cp ../../README.md ./README.md && npm run build"
 	},
 	"files": [
 		"dist/**/*",
