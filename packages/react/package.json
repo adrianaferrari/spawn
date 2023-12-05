@@ -1,34 +1,62 @@
 {
-  "name": "@spawn/react",
+	"name": "@web-spawn/react",
+	"private": false,
 	"camelCaseName": "spawn",
-  "version": "1.0.0",
-  "description": "",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build && tsc --project ./tsconfig.declarations.json",
-    "build:pages": "tsc && vite build --mode=pages",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-		"test": "vitest"
-  },
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "@testing-library/react": "^14.1.2",
-    "@types/react": "^18.2.18",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.4",
-    "autoprefixer": "^10.4.16",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "postcss": "^8.4.31",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.3"
-  },
-  "peerDependencies": {
-    "react": ">=17",
-    "react-dom": ">=17"
-  }
+	"version": "1.0.0",
+	"description": "A library that offers an alternative to the usual declarative approach to mount components imperatively.",
+	"type": "module",
+	"keywords": [
+		"spawn",
+		"react",
+		"imperative",
+		"mount",
+		"portal"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/adrianaferrari/spawn.git"
+	},
+	"bugs": {
+		"url": "https://github.com/adrianaferrari/spawn/issues"
+	},
+	"homepage": "https://github.com/adrianaferrari/spawn",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build && tsc --project ./tsconfig.declarations.json",
+		"build:pages": "tsc && vite build --mode=pages",
+		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+		"preview": "vite preview",
+		"test": "vitest",
+		"prepack": "npm run lint && npm run test -- --run && npm run build"
+	},
+	"files": [
+		"dist/**/*",
+		"CHANGELOG.md"
+	],
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./package.json": "./package.json"
+	},
+	"author": "Adriana Ferrari",
+	"license": "MIT",
+	"devDependencies": {
+		"@testing-library/react": "^14.1.2",
+		"@types/react": "^18.2.18",
+		"@types/react-dom": "^18.2.7",
+		"@vitejs/plugin-react": "^4.0.4",
+		"autoprefixer": "^10.4.16",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.3",
+		"postcss": "^8.4.31",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"tailwindcss": "^3.3.3"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0 || ^18.0.0",
+		"react-dom": "^17.0.0 || ^18.0.0"
+	}
 }
