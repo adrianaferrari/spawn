@@ -14,6 +14,7 @@ export default defineConfig(({mode}) => ({
 		setupFiles: ['./test/setup.ts'],
 		threads: false,
 	},
+	base: mode === 'pages' ? '/spawn/solid' : undefined,
 	build:
 		mode === 'pages'
 			? {outDir: 'pages'}
