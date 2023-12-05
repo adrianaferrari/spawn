@@ -5,3 +5,5 @@ node_modules
 dist
 dist-ssr
 *.local
+packages/react/pages
+packages/solid/pages

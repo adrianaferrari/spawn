@@ -1,11 +1,13 @@
 {
   "name": "@spawn/react",
+	"camelCaseName": "spawn",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && tsc --project ./tsconfig.declarations.json",
+    "build:pages": "tsc && vite build --mode=pages",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
 		"test": "vitest"

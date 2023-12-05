@@ -5,7 +5,7 @@ import {join} from 'path';
 
 const {devDependencies, peerDependencies, camelCaseName} = JSON.parse(readFileSync('package.json').toString());
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({mode}) => ({
 	plugins: [react()],
 	test: {
 		environment: 'jsdom',
@@ -14,16 +14,19 @@ export default defineConfig({
 		setupFiles: ['./test/setup.ts'],
 		threads: false,
 	},
-	build: {
-		sourcemap: true,
-		lib: {
-			formats: ['cjs', 'umd', 'es'],
-			entry: join('src', 'lib', 'index.ts'),
-			name: camelCaseName,
-			fileName: 'index',
-		},
-		rollupOptions: {
-			external: [...Object.keys(devDependencies || {}), ...Object.keys(peerDependencies || {})],
-		},
-	},
-});
+	build:
+		mode === 'pages'
+			? {outDir: 'pages'}
+			: {
+					sourcemap: true,
+					lib: {
+						formats: ['cjs', 'umd', 'es'],
+						entry: join('src', 'lib', 'index.ts'),
+						name: camelCaseName,
+						fileName: 'index',
+					},
+					rollupOptions: {
+						external: [...Object.keys(devDependencies || {}), ...Object.keys(peerDependencies || {})],
+					},
+			  },
+}));
