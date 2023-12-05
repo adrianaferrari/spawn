@@ -2,7 +2,7 @@
 	"name": "@web-spawn/solid",
 	"private": false,
 	"camelCaseName": "spawn",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A library that offers an alternative to the usual declarative approach to mount components imperatively.",
 	"type": "module",
 	"keywords": [
