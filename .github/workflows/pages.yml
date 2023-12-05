@@ -1,0 +1,39 @@
+name: Spawn pages
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build
+      run: |
+        npm install
+        cd ./packages/solid
+        npm run build:pages
+        cd ../react
+        npm run build:pages
+        cd ../..
+        mkdir _site
+        mv ./packages/solid/pages ./_site/solid
+        mv ./packages/react/pages ./_site/react
+    - name: Publish
+      uses: actions/upload-pages-artifact@v2.0.0
+      
+      
+      
